@@ -7,10 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start:go": "cd packages/go && go run main.go",
-    "start:node": "cd packages/node && yarn start"
+    "start:node": "cd packages/node && yarn start",
+    "start": "concurrently \"yarn start:go\" \"yarn start:node\""
   },
   "dependencies": {
     "express": "^4.17.1",
     "prom-client": "^13.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }
