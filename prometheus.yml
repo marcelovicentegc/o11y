@@ -1,0 +1,40 @@
+# The global block controls the Prometheus server's global configuration.
+# We have two options present. The first, scrape_interval, controls how often Prometheus will scrape targets.
+# You can override this for individual targets. In this case the global setting is to scrape every 15 seconds.
+# The evaluation_interval option controls how often Prometheus will evaluate rules.
+# Prometheus uses rules to create new time series and to generate alerts.
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# The rule_files block specifies the location of any rules we want the Prometheus server to load.
+# For now we've got no rules.
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+# The last block, scrape_configs, controls what resources Prometheus monitors.
+# Since Prometheus also exposes data about itself as an HTTP endpoint it can scrape and monitor its own health.
+# In the default configuration there is a single job, called prometheus, which scrapes the time series data exposed by the Prometheus server.
+# The job contains a single, statically configured, target, the localhost on port 9090.
+# Prometheus expects metrics to be available on targets on a path of /metrics.
+# So this default job is scraping via the URL: http://localhost:9090/metrics.
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+  # Your locally running Prometheus instance needs to be properly configured in order to access Node Exporter metrics.
+  # The following prometheus.yml example configuration file will tell the Prometheus instance to scrape, and how frequently, from the Node Exporter via localhost:9100
+  - job_name: node
+    static_configs:
+      - targets: ["localhost:9100"]
+  - job_name: myapp_go
+    scrape_interval: 10s
+    static_configs:
+      - targets:
+          - localhost:2112
+  - job_name: myapp_node
+    scrape_interval: 10s
+    static_configs:
+      - targets:
+          - localhost:3000

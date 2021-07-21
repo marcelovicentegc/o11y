@@ -1,0 +1,16 @@
+{
+  "name": "promethest",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:marcelovicentegc/promethest.git",
+  "author": "Marcelo Cardoso <marcelovicentegc@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start:go": "cd packages/go && go run main.go",
+    "start:node": "cd packages/node && yarn start"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "prom-client": "^13.1.0"
+  }
+}
