@@ -14,7 +14,7 @@ Execute it using the configuration file from this repo
 prometheus --config.file=prometheus.yml
 ```
 
-Navigate to `http://localhost:9000` and run the following PromQLs on the search console
+Navigate to `http://localhost:9090` and run the following PromQLs on the search console
 
 ```bash
 promhttp_metric_handler_requests_total
@@ -37,7 +37,7 @@ Start it
 node_exporter
 ```
 
-Navigate to `http://localhost:9000` and run the following PromQLs on the search console
+Navigate to `http://localhost:9090` and run the following PromQLs on the search console
 
 ```bash
 rate(node_cpu_seconds_total{mode="system"}[1m])

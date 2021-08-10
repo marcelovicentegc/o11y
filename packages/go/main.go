@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"runtime"
 	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
@@ -16,6 +17,21 @@ func recordMetrics() {
 			opsProcessed.Inc()
 			time.Sleep(2 * time.Second)
 		}
+	}()
+
+	go func() {
+		if err := prometheus.Register(prometheus.NewGaugeFunc(
+			prometheus.GaugeOpts{
+				Subsystem: "runtime",
+				Name:      "myapp_goroutines_count",
+				Help:      "Number of goroutines that currently exist.",
+			},
+			func() float64 { return float64(runtime.NumGoroutine()) },
+		)); err == nil {
+			fmt.Println("GaugeFunc 'goroutines_count' registered.")
+		}
+		// Note that the count of goroutines is a gauge (and not a counter) as
+		// it can go up and down.
 	}()
 }
 
