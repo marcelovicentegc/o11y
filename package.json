@@ -8,7 +8,8 @@
   "scripts": {
     "start:go": "cd packages/go && go run main.go",
     "start:node": "cd packages/node && yarn start",
-    "start": "concurrently \"prometheus\" \"node_exporter\" \"yarn start:go\" \"yarn start:node\""
+    "grafana:foreground": "/usr/local/opt/grafana/bin/grafana-server --config /usr/local/etc/grafana/grafana.ini --homepath /usr/local/opt/grafana/share/grafana --packaging=brew cfg:default.paths.logs=/usr/local/var/log/grafana cfg:default.paths.data=/usr/local/var/lib/grafana cfg:default.paths.plugins=/usr/local/var/lib/grafana/plugins",
+    "start": "concurrently \"prometheus\" \"yarn grafana:foreground\" \"node_exporter\" \"yarn start:go\" \"yarn start:node\""
   },
   "dependencies": {
     "express": "^4.17.1",

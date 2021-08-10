@@ -1,12 +1,21 @@
 # promethest
 
-## Prometheus
+## Requirements
 
-Install `prometheus`
+Install `prometheus` and `grafana`
 
 ```bash
 brew install prometheus
+brew install grafana
 ```
+
+## Grafana
+
+By default, listens on `http://localhost:3000`, and the default login is `admin`/`admin`.
+
+See https://prometheus.io/docs/visualization/grafana/#using for more information on setting Prometheus as a data source.
+
+## Prometheus
 
 Execute it using the configuration file from this repo
 

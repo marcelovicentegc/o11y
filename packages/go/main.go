@@ -46,7 +46,7 @@ func main() {
 	recordMetrics()
 
 	http.Handle("/metrics", promhttp.Handler())
-	http.ListenAndServe(":2112", nil)
+	http.ListenAndServe(":9089", nil)
 
-	fmt.Println("listening on port :2112")
+	fmt.Println("listening on port :9089")
 }
