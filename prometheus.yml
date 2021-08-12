@@ -45,7 +45,7 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9087
-  - job_name: pushgateway
+  - job_name: myapp_pushgateway
     honor_labels: false
     static_configs:
       - targets: ["localhost:9091"]
