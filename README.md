@@ -2,11 +2,12 @@
 
 ## Requirements
 
-Install `prometheus` and `grafana`
+Install `prometheus`, `prometheus pushgateway` and `grafana`
 
 ```bash
 brew install prometheus
 brew install grafana
+docker pull prom/pushgateway
 ```
 
 ## Grafana
@@ -31,6 +32,10 @@ promhttp_metric_handler_requests_total{code="200"}
 count(promhttp_metric_handler_requests_total)
 rate(promhttp_metric_handler_requests_total{code="200"}[1m])
 ```
+
+## Prometheus Pushgateway
+
+Listens on `http://localhost:9091` and is used for frontend monitoring.
 
 ## Node exporter
 
