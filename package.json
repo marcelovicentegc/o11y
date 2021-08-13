@@ -7,21 +7,22 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "yarn && cd packages/node && yarn && cd../frontend && yarn",
+    "kafka:create-topic": "wait-on tcp:9092 && kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic frontend_metrics --if-not-exists",
     "start:go": "cd packages/go && go run main.go",
     "start:node": "cd packages/node && yarn start",
     "start:frontend": "cd packages/frontend && yarn start",
-    "start:pushgateway": "docker run --rm -p 9091:9091 prom/pushgateway",
+    "start:pushgateway": "wait-on tcp:9090 && docker run --rm -p 9091:9091 prom/pushgateway",
     "start:prometheus": "prometheus --config.file=prometheus.yml",
-    "kafka:create-topic": "kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic frontend_metrics --if-not-exists",
-    "start:kafka:producer-console": "kafka-console-producer --broker-list localhost:9092 --topic frontend_metrics",
-    "start:kafka:consumer-console": "kafka-console-consumer --bootstrap-server localhost:9092 --topic frontend_metrics --from-beginning",
+    "start:kafka:producer-console": "wait-on tcp:9092 && kafka-console-producer --broker-list localhost:9092 --topic frontend_metrics",
+    "start:kafka:consumer-console": "wait-on tcp:9092 && kafka-console-consumer --bootstrap-server localhost:9092 --topic frontend_metrics --from-beginning",
     "start:kafka": "zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties & kafka-server-start ./server.properties",
-    "start:kafka-exporter": "docker run -ti --rm -p 9308:9308 danielqsj/kafka-exporter --kafka.server=kafka:9092",
-    "grafana:foreground": "/usr/local/opt/grafana/bin/grafana-server --config /usr/local/etc/grafana/grafana.ini --homepath /usr/local/opt/grafana/share/grafana --packaging=brew cfg:default.paths.logs=/usr/local/var/log/grafana cfg:default.paths.data=/usr/local/var/lib/grafana cfg:default.paths.plugins=/usr/local/var/lib/grafana/plugins",
-    "start": "concurrently \"yarn start:kafka\" \"yarn kafka:create-topic\" \"yarn start:kafka-exporter\" \"yarn start:kafka:producer-console\" \"yarn start:kafka:consumer-console\" \"yarn start:prometheus\" \"yarn start:pushgateway\" \"yarn grafana:foreground\" \"node_exporter\" \"yarn start:go\" \"yarn start:node\" \"yarn start:frontend\""
+    "start:kafka-exporter": "wait-on tcp:9092 && docker run --rm -p 9308:9308 danielqsj/kafka-exporter --kafka.server=host.docker.internal:9092",
+    "start:grafana": "/usr/local/opt/grafana/bin/grafana-server --config /usr/local/etc/grafana/grafana.ini --homepath /usr/local/opt/grafana/share/grafana --packaging=brew cfg:default.paths.logs=/usr/local/var/log/grafana cfg:default.paths.data=/usr/local/var/lib/grafana cfg:default.paths.plugins=/usr/local/var/lib/grafana/plugins",
+    "start": "concurrently \"yarn start:kafka\" \"yarn kafka:create-topic\" \"yarn start:kafka-exporter\" \"yarn start:kafka:producer-console\" \"yarn start:kafka:consumer-console\" \"yarn start:prometheus\" \"yarn start:pushgateway\" \"yarn start:grafana\" \"node_exporter\" \"yarn start:go\" \"yarn start:node\" \"yarn start:frontend\""
   },
   "dependencies": {},
   "devDependencies": {
-    "concurrently": "^6.2.0"
+    "concurrently": "^6.2.0",
+    "wait-on": "^6.0.0"
   }
 }

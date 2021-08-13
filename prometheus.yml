@@ -46,8 +46,16 @@ scrape_configs:
       - targets:
           - localhost:9087
   - job_name: myapp_pushgateway
-    honor_labels: false
+    scrape_interval: 5s
     static_configs:
-      - targets: ["localhost:9091"]
+      - targets:
+          - localhost:9091
         labels:
           pushgateway_instance: frontend
+  - job_name: myapp_kafka
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - localhost:9308
+        labels:
+          kafka_instance: frontend
