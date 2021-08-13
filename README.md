@@ -4,13 +4,16 @@ promethest is an experiment with monitoring tools with the sole aim to learn.
 
 ## Requirements
 
-Make sure you got Docker, Prometheus, Prometheus' Pushgateway docker image, Prometheus' Node exporter, Grafana, NodeJS and yarn installed on your machine.
+Make sure you got Docker, Prometheus, Prometheus' Pushgateway docker image, Prometheus' Node exporter, Grafana, Kafka, Kafka's Prometheus Exporter, NodeJS and yarn installed on your machine.
 
 You'll likely **not have** Prometheus, Prometheu's Pushgateway docker image and the Node exporter installed, so run this:
 
 ```bash
 brew install prometheus grafana node_exporter
-docker pull prom/pushgateway
+brew install java
+brew install kafka
+docker pull prom/pushgateway:latest
+docker pull danielqsj/kafka-exporter:latest
 ```
 
 ## Running the experiment
@@ -56,6 +59,14 @@ See https://prometheus.io/docs/visualization/grafana/#using for more information
 The [frontend](./packages/frontend) package contains a React application, served by a Node server which contains an endpoint to receive data from the frontend metrics and push them to Prometheus using the Pushgateway.
 
 You can visit the Pushgateways' console on `http://localhost:9091`.
+
+#### Kafka
+
+Creates a `frontend_metrics` topic, consumed by Kafka's server instance running on `http://localhost:9092`.
+
+###### Kafka exporter
+
+Runs on `http://localhost:9308`.
 
 ### Instrumented applications
 
