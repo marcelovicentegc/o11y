@@ -1,4 +1,4 @@
-# promethest
+# promethest 🧪
 
 promethest is an experiment with monitoring tools with the sole aim to learn.
 
@@ -24,6 +24,8 @@ yarn start     # start the experiment
 ```
 
 ### Grafana dashboards
+
+Import these dashboards on Grafana after you've set Prometheus as a data source there. See [Grafana](#grafana) and [Prometheus](#prometheus) for more information on how to do this.
 
 - [Kafka Exporter](grafana/kafka-exporter-overview_rev5.json)
 - [Frontend Web Vitals](grafana/frontend-web-vitals-overview.json)
