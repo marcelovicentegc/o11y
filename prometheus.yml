@@ -22,12 +22,14 @@ rule_files:
 scrape_configs:
   - job_name: prometheus
     static_configs:
-      - targets: ["localhost:9090"]
+      - targets:
+          - localhost:9090
   # Your locally running Prometheus instance needs to be properly configured in order to access Node Exporter metrics.
   # The following prometheus.yml example configuration file will tell the Prometheus instance to scrape, and how frequently, from the Node Exporter via localhost:9100
   - job_name: node
     static_configs:
-      - targets: ["localhost:9100"]
+      - targets:
+          - localhost:9100
   - job_name: myapp_go
     scrape_interval: 10s
     static_configs:
@@ -45,13 +47,6 @@ scrape_configs:
     static_configs:
       - targets:
           - localhost:9087
-  - job_name: myapp_pushgateway
-    scrape_interval: 5s
-    static_configs:
-      - targets:
-          - localhost:9091
-        labels:
-          pushgateway_instance: frontend
   - job_name: myapp_kafka
     scrape_interval: 5s
     static_configs:
@@ -59,3 +54,8 @@ scrape_configs:
           - localhost:9308
         labels:
           kafka_instance: frontend
+  - job_name: myapp_pushgateway
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+          - localhost:9091

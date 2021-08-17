@@ -13,9 +13,9 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-function sendToPushgateway(metric) {
+function sendToPrometheus(metric) {
   const body = JSON.stringify(metric);
-  const serverUrl = BASE_URL + "/pushgateway";
+  const serverUrl = BASE_URL + "/gauge";
 
   fetch(serverUrl, {
     body,
@@ -40,7 +40,7 @@ function sendToKafka(metric) {
 }
 
 function sendMetrics(metric) {
-  sendToPushgateway(metric);
+  sendToPrometheus(metric);
   sendToKafka(metric);
 }
 
