@@ -6,37 +6,30 @@ const { Kafka } = require("kafkajs");
 const { parseReqBody } = require("./utils");
 
 const PORT = 9087;
-const { register, collectDefaultMetrics, Gauge } = promclient;
+const { register, collectDefaultMetrics, Histogram } = promclient;
 
 collectDefaultMetrics({
   gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5], // These are the default buckets.
 });
 
-const gauges = {
-  FCP: new Gauge({
-    name: "myapp_frontend_fcp",
-    help: "FCP",
-    registers: [register],
-  }),
-  TTFB: new Gauge({
-    name: "myapp_frontend_ttfb",
-    help: "TTFB",
-    registers: [register],
-  }),
-  CLS: new Gauge({
+const coreWebVitalsInstruments = {
+  CLS: new Histogram({
+    help: "The Cumulative Layout Shift (CLS) is a measure of the largest burst of layout shift scores for every unexpected layout shift that occurs during the entire lifespan of a page.",
     name: "myapp_frontend_cls",
-    help: "CLS",
     registers: [register],
+    buckets: [0.1, 0.25],
   }),
-  FID: new Gauge({
+  FID: new Histogram({
+    help: "The First Input Delay (FID) measures the time from a user first interacts with a page (i.e. when they click a link, tap on a button, or use a custom, JavaScript-powered control) to the time when the browser is actually able to begin processing event handlers in response to that interaction.",
     name: "myapp_frontend_fid",
-    help: "FID",
     registers: [register],
+    buckets: [100, 300],
   }),
-  LCP: new Gauge({
+  LCP: new Histogram({
+    help: "The Largest Contentful Paint (LCP) metric reports the render time of the largest image or text block visible within the viewport, relative to when the page first started loading.",
     name: "myapp_frontend_lcp",
-    help: "LCP",
     registers: [register],
+    buckets: [2500, 4000],
   }),
 };
 
@@ -90,13 +83,13 @@ async function start() {
     }
   });
 
-  server.post("/frontend-metrics/gauge", function (req, res) {
+  server.post("/frontend-metrics/core-web-vitals", function (req, res) {
     const body = parseReqBody(req);
 
-    const gauge = gauges[body.name];
+    const coreWebVital = coreWebVitalsInstruments[body.name];
 
-    if (gauge) {
-      gauge.set(Number(body.value));
+    if (coreWebVital) {
+      coreWebVital.observe(Number(body.value));
 
       res.status(201);
       res.end();

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+import reportCoreWebVitals from "./reportCoreWebVitals";
 
 const BASE_URL = "http://localhost:9087/frontend-metrics";
 
@@ -15,7 +15,7 @@ ReactDOM.render(
 
 function sendToPrometheus(metric) {
   const body = JSON.stringify(metric);
-  const serverUrl = BASE_URL + "/gauge";
+  const serverUrl = BASE_URL + "/core-web-vitals";
 
   fetch(serverUrl, {
     body,
@@ -44,4 +44,4 @@ function sendMetrics(metric) {
   sendToKafka(metric);
 }
 
-reportWebVitals(sendMetrics);
+reportCoreWebVitals(sendMetrics);

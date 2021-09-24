@@ -112,28 +112,12 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "myapp_frontend_fcp",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "FCP",
-          "refId": "FCP"
-        },
-        {
-          "exemplar": true,
           "expr": "myapp_frontend_lcp",
           "format": "time_series",
           "hide": false,
           "interval": "",
           "legendFormat": "LCP",
           "refId": "LCP"
-        },
-        {
-          "exemplar": true,
-          "expr": "myapp_frontend_ttfb",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "TTFB",
-          "refId": "TTFB"
         },
         {
           "exemplar": true,
