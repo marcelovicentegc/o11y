@@ -1,6 +1,6 @@
-# promethest 🧪
+# o11y 🧪
 
-promethest is an experiment with monitoring tools with the sole aim to learn.
+o11y is an experiment with monitoring tools with the sole aim to learn.
 
 ## Requirements
 

@@ -1,5 +1,5 @@
 {
-  "name": "@promethest/frontend",
+  "name": "@o11y/frontend",
   "version": "0.0.0",
   "private": true,
   "dependencies": {

@@ -1,4 +1,4 @@
-module github.com/marcelovicentegc/promethest/packages/go
+module github.com/marcelovicentegc/o11y/packages/go
 
 go 1.16
 

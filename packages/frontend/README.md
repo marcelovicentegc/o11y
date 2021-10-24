@@ -1,4 +1,4 @@
-# promethest/packages/frontend
+# o11y/packages/frontend
 
 React application runs on `http://localhost:3000` and is served by a Node server on `http://localhost:9087`.
 

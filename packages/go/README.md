@@ -1,4 +1,4 @@
-# promethest/packages/go
+# o11y/packages/go
 
 ## Metrics
 

@@ -1,8 +1,8 @@
 {
-  "name": "promethest",
+  "name": "o11y",
   "version": "0.0.0",
   "main": "index.js",
-  "repository": "git@github.com:marcelovicentegc/promethest.git",
+  "repository": "git@github.com:marcelovicentegc/o11y.git",
   "author": "Marcelo Cardoso <marcelovicentegc@gmail.com>",
   "license": "MIT",
   "scripts": {

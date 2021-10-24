@@ -1,4 +1,4 @@
-# promethest/packages/node
+# o11y/packages/node
 
 ## Metrics
 
